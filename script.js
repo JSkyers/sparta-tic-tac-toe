@@ -1,54 +1,44 @@
-$(document).ready(function() {
+$(function(){
 
-var playerTurn = "x";
-var $tile = $("td");
-var tiles = [];
+  var playerTurn = 1;
+  var $grid = $("td");
+  $grid.click(addXOrO);
 
-$("td").click(function(){
-  if (playerTurn == "x") {
-    $(this).addClass("X").html("X")
-    playerTurn = "o"
-    $("td").each(tileCover);
+  function addXOrO() {
+    if(playerTurn == 1 && $(this).html() == "" ) {
+      $(this).html("X");
+      playerTurn = 2;
+      checkForWinner($(this).html());
+    } else if (playerTurn == 2 && $(this).html() == "") {
+      $(this).html("O");
+      playerTurn = 1;
+      checkForWinner($(this).html());
     }
-  else{
-    $(this).addClass("O").html("O")
-    playerTurn = "x"
-    $("td").each(tileCover);
   }
-})
-  function tileCover( index, space){
-    tiles[index] = $(this).html();
-    winCondition()
-  }
-
-  function winCondition(){
-    if (tiles[0] == "X" && tiles[1] == "X" && tiles[2] == "X" || tiles[0] == "O" && tiles[1] == "O" && tiles[2] == "O") {
-      alert("WINNER WINNER CHICKEN DINNER")
-    }else if (tiles[3] == "X" && tiles[4] == "X" && tiles[5] == "X" || tiles[3] == "O" && tiles[4] == "O" && tiles[5] == "O" ) {
-      alert("WINNER WINNER CHICKEN DINNER")
-    }else if (tiles[6] == "X" && tiles[7] == "X" && tiles[8] == "X" || tiles[6] == "O" && tiles[7] == "O" && tiles[8] == "O" ){
-      alert("WINNER WINNER CHICKEN DINNER")
-    }else if (tiles[2] == "X" && tiles[5] == "X" && tiles[8] == "X" || tiles[2] == "O" && tiles[5] == "O" && tiles[8] == "O" ){
-      alert("WINNER WINNER CHICKEN DINNER")
-    }else if (tiles[1] == "X" && tiles[4] == "X" && tiles[7] == "X" || tiles[1] == "O" && tiles[4] == "O" && tiles[7] == "O" ){
-      alert("WINNER WINNER CHICKEN DINNER")
-    }else if (tiles[0] == "X" && tiles[3] == "X" && tiles[6] == "X" || tiles[0] == "O" && tiles[3] == "O" && tiles[6] == "O" ){
-      alert("WINNER WINNER CHICKEN DINNER")
-    }else if (tiles[0] == "X" && tiles[4] == "X" && tiles[8] == "X" || tiles[0] == "O" && tiles[4] == "O" && tiles[8] == "O" ){
-      alert("WINNER WINNER CHICKEN DINNER")
-    }else if (tiles[2] == "X" && tiles[4] == "X" && tiles[6] == "X" || tiles[2] == "O" && tiles[4] == "O" && tiles[6] == "O" ){
-      alert("WINNER WINNER CHICKEN DINNER")
+  function checkForWinner(symbol) {
+    if($($grid[0]).html() == symbol && $($grid[1]).html() == symbol && $($grid[2]).html() == symbol) {
+      alert(symbol + " has won!");
+    } else if($($grid[3]).html() == symbol && $($grid[4]).html() == symbol && $($grid[5]).html() == symbol) {
+        alert(symbol + " has won!");
+    } else if($($grid[6]).html() == symbol && $($grid[7]).html() == symbol && $($grid[8]).html() == symbol) {
+        alert(symbol + " has won!");
+    } else if($($grid[0]).html() == symbol && $($grid[3]).html() == symbol && $($grid[6]).html() == symbol) {
+        alert(symbol + " has won!");
+    } else if($($grid[1]).html() == symbol && $($grid[4]).html() == symbol && $($grid[7]).html() == symbol) {
+        alert(symbol + " has won!");
+    } else if($($grid[2]).html() == symbol && $($grid[5]).html() == symbol && $($grid[8]).html() == symbol) {
+        alert(symbol + " has won!");
+    } else if($($grid[0]).html() == symbol && $($grid[4]).html() == symbol && $($grid[8]).html() == symbol) {
+        alert(symbol + " has won!");
+    } else if($($grid[2]).html() == symbol && $($grid[4]).html() == symbol && $($grid[6]).html() == symbol) {
+        alert(symbol + " has won!");
     }
   }
 
-
-
-$("#reset").click(function(){
-    $("td").removeClass("X").html("");
-    $("td").removeClass("O").html("");
-    $("h2").html("It is X's playerTurn");
-  });
-
-  
-
+  $("#reset").click(function(){
+      $("td").removeClass("X").html("");
+      $("td").removeClass("O").html("");
+      $("h2").html("It is X's playerTurn");
+      playerTurn = 1;
+    });
 });
